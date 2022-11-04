@@ -64,13 +64,15 @@ class Birthday(Field):
     def value(self) -> datetime.date:
         return self.__value
 
+    
     @value.setter
     def value(self, value):
         value_list=value.split(".")
         if len(value_list[0])==2 and len(value_list[1])==2 and len(value_list[2])==4:  
-                self.__value = value
+            self.__value = value
         else:
-            print('Enter right birthday date, please!')
+            raise ValueError
+
 
     def __str__(self) -> str:
         return self.value
@@ -163,16 +165,16 @@ def input_error(func):
         try:
             return func(*args)
         except (KeyError, ValueError, IndexError):
-            return "You should enter command (space) name (space) phone (space) birthday"
+            return "Enter right name, phone or birthday, please!"
 
     return wrapper
 
 
-def hello(*args):
+def hello(_):
     return 'How can I help you?'
 
 
-def exit(*args):
+def exit(_):
     return 'Good bye'
 
 
